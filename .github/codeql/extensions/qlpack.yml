@@ -1,0 +1,7 @@
+name: ertekinozturgut/strapi-agent-squad-models
+version: 1.0.0
+library: true
+extensionTargets:
+  codeql/javascript-all: '*'
+dataExtensions:
+  - models/**/*.yml

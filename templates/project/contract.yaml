@@ -1,0 +1,28 @@
+version: 1
+runtime:
+  strapi: ">=5 <6"
+  typescript: true
+  node: "project-engines"
+  packageManager: "lockfile"
+surfaces:
+  contentApi: true
+  adminApi: true
+  plugins: true
+  adminPanel: true
+  mcp: optional
+architecture:
+  controllersDelegateToServices: true
+  documentServicePreferred: true
+  pluginAdminAndServerSeparated: true
+data:
+  migrationsRequiredForSchemaChanges: true
+  destructiveMigrationRequiresBackup: true
+security:
+  anonymousRoutesRequireAllowlist: true
+  sanitizeCustomControllers: true
+  secretsFromEnvironment: true
+  piiRedactionRequired: true
+quality:
+  changedLineCoverage: 80
+  mutationScore: 80
+  criticalMutationSurvivors: 0

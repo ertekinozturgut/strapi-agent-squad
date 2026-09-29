@@ -1,0 +1,9 @@
+.env
+.env.*
+.git
+.github
+*.pem
+*.key
+id_rsa*
+node_modules
+.agents/reports

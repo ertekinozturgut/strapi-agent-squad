@@ -1,0 +1,17 @@
+pipeline {
+  agent any
+  stages {
+    stage('Install') {
+      steps { sh 'corepack enable && pnpm install --frozen-lockfile' }
+    }
+    stage('Generated tests') {
+      steps { sh 'pnpm squad:testgen:check' }
+    }
+    stage('Quality and security') {
+      steps { sh 'pnpm squad:check && pnpm squad:verify' }
+    }
+    stage('Build') {
+      steps { sh 'pnpm build' }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "name": "strapi-agent-squad",
+  "version": "1.0.0",
+  "description": "Strapi 5 TypeScript agent squad with deterministic test generation and security gates",
+  "type": "module",
+  "bin": {
+    "strapi-agent-squad": "./bin/strapi-squad.mjs",
+    "strapi-squad": "./bin/strapi-squad.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./testkit": "./src/testkit.mjs"
+  },
+  "files": [
+    ".agents",
+    ".codeql",
+    ".cursor",
+    ".gitleaks.toml",
+    ".github/codeql/extensions",
+    ".semgrep",
+    "bin",
+    "scripts",
+    "src",
+    "templates",
+    "tasks.schema.json",
+    "tasks.template.json",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "LICENSE",
+    "README.md",
+    "trivy.yaml"
+  ],
+  "scripts": {
+    "test": "node --test tests/unit/*.test.mjs tests/integration/*.test.mjs",
+    "test:fixtures": "node --test tests/fixtures/*.test.mjs",
+    "security:licenses": "node scripts/check-licenses.mjs",
+    "check": "node --check bin/strapi-squad.mjs && node --test tests/unit/*.test.mjs tests/integration/*.test.mjs tests/fixtures/*.test.mjs",
+    "verify": "pnpm run check && pnpm run security:licenses && node bin/strapi-squad.mjs security --target . --format json",
+    "prepack": "pnpm run check"
+  },
+  "engines": {
+    "node": ">=20 <=24"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "dependencies": {
+    "typescript": "^5.9.3",
+    "yaml": "^2.8.1"
+  },
+  "keywords": [
+    "strapi",
+    "testing",
+    "security",
+    "agents",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "Ertekin Ozturgut"
+}

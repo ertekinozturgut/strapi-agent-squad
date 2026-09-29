@@ -1,0 +1,120 @@
+rules:
+  - id: strapi-auth-false-review
+    message: Anonymous Strapi route must be present in the reviewed public route allowlist.
+    severity: ERROR
+    languages: [typescript, javascript]
+    patterns:
+      - pattern: "auth: false"
+    metadata:
+      squad-rule: STRAPI-AUTH-001
+      cwe: CWE-306
+      asvs: V4
+
+  - id: strapi-dynamic-code-execution
+    message: Dynamic code execution is forbidden in Strapi applications and plugins.
+    severity: ERROR
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: eval(...)
+      - pattern: new Function(...)
+    metadata:
+      squad-rule: STRAPI-SEC-001
+      cwe: CWE-95
+      asvs: V5
+
+  - id: strapi-request-to-child-process
+    message: Request-controlled data must not reach process execution.
+    severity: ERROR
+    languages: [typescript, javascript]
+    patterns:
+      - pattern-either:
+          - pattern: exec($ARG, ...)
+          - pattern: execSync($ARG, ...)
+          - pattern: spawn($CMD, $ARG, ...)
+      - metavariable-pattern:
+          metavariable: $ARG
+          pattern-either:
+            - pattern: $CTX.request.$FIELD
+            - pattern: $CTX.query.$FIELD
+            - pattern: $CTX.params.$FIELD
+    metadata:
+      squad-rule: STRAPI-SEC-002
+      cwe: CWE-78
+      asvs: V5
+
+  - id: strapi-sensitive-request-logging
+    message: Do not log request bodies, authorization headers, or cookies.
+    severity: ERROR
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: console.$METHOD($CTX.request.body, ...)
+      - pattern: console.$METHOD($CTX.request.headers.authorization, ...)
+      - pattern: $LOGGER.$METHOD($CTX.request.body, ...)
+      - pattern: $LOGGER.$METHOD($CTX.cookies, ...)
+    metadata:
+      squad-rule: STRAPI-SEC-003
+      cwe: CWE-532
+      asvs: V14
+
+  - id: strapi-unbounded-populate
+    message: Avoid populate '*' because it can expose restricted relations and exhaust resources.
+    severity: WARNING
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: "populate: '*'"
+      - pattern: 'populate: "*"'
+    metadata:
+      squad-rule: STRAPI-SEC-006
+      cwe: CWE-770
+      asvs: V4
+
+  - id: strapi-fetch-without-timeout
+    message: Outbound fetch must use a bounded AbortSignal timeout.
+    severity: WARNING
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: fetch($URL)
+      - patterns:
+          - pattern: fetch($URL, $OPTIONS)
+          - pattern-not: 'fetch($URL, { ..., signal: $SIGNAL, ... })'
+    metadata:
+      squad-rule: STRAPI-SEC-005
+      cwe: CWE-918
+      asvs: V4
+
+  - id: strapi-raw-query-request-data
+    message: Request-controlled values must not be interpolated into raw database queries.
+    severity: ERROR
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: $DB.raw(`...${$CTX.request.$FIELD}...`)
+      - pattern: $DB.raw(`...${$CTX.query.$FIELD}...`)
+      - pattern: $DB.raw(`...${$CTX.params.$FIELD}...`)
+    metadata:
+      squad-rule: STRAPI-SAN-001
+      cwe: CWE-89
+      asvs: V5
+
+  - id: strapi-open-redirect
+    message: Redirect targets derived from request input require an exact allowlist.
+    severity: ERROR
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: $CTX.redirect($CTX.query.$FIELD)
+      - pattern: $CTX.redirect($CTX.request.body.$FIELD)
+    metadata:
+      squad-rule: STRAPI-SEC-009
+      cwe: CWE-601
+      asvs: V4
+
+  - id: strapi-raw-request-to-document-service
+    message: Validate and allowlist request data before passing it to Document Service.
+    severity: ERROR
+    languages: [typescript, javascript]
+    pattern-either:
+      - pattern: '$STRAPI.documents($UID).create({ ..., data: $CTX.request.body, ... })'
+      - pattern: '$STRAPI.documents($UID).update({ ..., data: $CTX.request.body, ... })'
+    metadata:
+      squad-rule: STRAPI-SAN-003
+      cwe: CWE-915
+      asvs: V5

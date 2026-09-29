@@ -1,0 +1,7 @@
+version: 1
+exclude:
+  # Deliberately insecure samples prove that the scanners fail closed.
+  - fixtures/vulnerable/**
+  # Scanner/model definitions contain detector examples, not executable application sinks.
+  - .semgrep/**
+  - .github/codeql/extensions/**

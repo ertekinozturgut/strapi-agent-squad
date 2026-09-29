@@ -1,0 +1,8 @@
+version: 1
+# S1 findings cannot be suppressed. Every S2/S3 exception requires all fields and expires.
+exceptions: []
+# - ruleId: STRAPI-SEC-005
+#   file: src/services/example.ts
+#   reason: Temporary migration adapter; tracked by issue SEC-123.
+#   owner: platform-integration-engineer
+#   expires: 2026-12-31
