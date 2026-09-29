@@ -171,9 +171,15 @@ export async function discoverProject(projectRoot) {
     return SOURCE_EXTENSIONS.has(path.extname(file)) || relative === 'package.json' || relative.endsWith('.yaml') || relative.endsWith('.yml');
   });
   const relativeFiles = files.map((file) => normalizePath(root, file));
-  const schemaFiles = files.filter((file) => /content-types[/\\][^/\\]+[/\\]schema\.json$/.test(file));
-  const componentFiles = files.filter((file) => /src[/\\]components[/\\].+\.json$/.test(file));
-  const routeFiles = files.filter((file) => CODE_EXTENSIONS.has(path.extname(file)) && /[/\\]routes[/\\]/.test(file));
+  const schemaFiles = files.filter((file) => {
+    const segments = normalizePath(root, file).split('/');
+    return segments.length >= 3 && segments.at(-1) === 'schema.json' && segments.at(-3) === 'content-types';
+  });
+  const componentFiles = files.filter((file) => {
+    const relative = normalizePath(root, file);
+    return relative.startsWith('src/components/') && path.extname(relative) === '.json';
+  });
+  const routeFiles = files.filter((file) => CODE_EXTENSIONS.has(path.extname(file)) && normalizePath(root, file).includes('/routes/'));
 
   const contentTypes = [];
   for (const file of schemaFiles) {
