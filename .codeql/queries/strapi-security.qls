@@ -1,0 +1,3 @@
+- description: Strapi Agent Squad JavaScript and TypeScript security suite
+- import: codeql-suites/javascript-security-extended.qls
+  from: codeql/javascript-queries

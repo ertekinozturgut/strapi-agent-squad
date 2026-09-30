@@ -1,25 +1,17 @@
 [
   {
-    "$schema": "./tasks.schema.json",
     "id": "TASK-01",
-    "title": "Görev Başlığı (Örn: Kullanıcı Kimlik Doğrulama Modülü)",
-    "description": "Görevin detaylı iş gereksinimleri, teslim edilecek iş değeri ve mimari beklentiler.",
+    "title": "Strapi task title",
+    "description": "Business value and the bounded Strapi change.",
     "status": "pending",
     "priority": "high",
     "dependencies": [],
     "assignedSquad": {
       "orchestrator": "project-manager",
-      "analyst": "business-analyst",
-      "architect": "solution-architect",
-      "ux": "uiux-designer",
-      "developers": [
-        "backend-engineer",
-        "razor-specialist"
-      ],
-      "reviewers": [
-        "qa-tester",
-        "security-reviewer"
-      ]
+      "analyst": "cms-business-analyst",
+      "architect": "strapi-solution-architect",
+      "developers": ["strapi-backend-engineer"],
+      "reviewers": ["qa-tester", "security-reviewer"]
     },
     "dorMet": false,
     "dodMet": false,
@@ -28,23 +20,23 @@
     "artifacts": {
       "userStory": "",
       "acceptanceCriteria": [],
-      "architectureDecisions": [],
-      "designPatternsUsed": [],
-      "uiDesignTokens": [],
+      "contentModelChanges": [],
+      "apiContracts": [],
+      "permissionMatrix": [],
+      "migrationPlan": "",
+      "dataClassification": [],
+      "pluginImpacts": [],
       "testsWritten": [],
-      "securityAuditPassed": false,
-      "mutationScore": 100.0,
-      "standardTraceability": [
-        "ASVS-V14",
-        "ISO25010-Security",
-        "KVKK-m12"
-      ],
+      "securityEvidence": [],
+      "rolloutPlan": "",
+      "rollbackPlan": "",
       "toolAuditResults": {
-        "archunit": "pass",
-        "opengrep": "pass",
-        "codeql": "pass",
-        "stryker": "pass",
-        "roslyn": "pass"
+        "typecheck": "skip",
+        "lint": "skip",
+        "testgen": "skip",
+        "unit": "skip",
+        "integration": "skip",
+        "security": "skip"
       },
       "suppressions": []
     }

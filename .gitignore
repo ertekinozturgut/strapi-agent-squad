@@ -1,36 +1,23 @@
-# OS generated files
-.DS_Store
-Thumbs.db
-desktop.ini
+# Dependencies and generated output
+node_modules/
+coverage/
+.tmp/
+dist/
+*.log
 
-# IDE & Editor files
-.idea/
-.vscode/
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# Generated reports may contain local paths and are not versioned
+.agents/reports/
 
-# .NET Build and Packaging outputs
-bin/
-obj/
-*.binlog
-TestResults/
-[Bb]uild[Ll]og.*
-packages/
-*.nupkg
-
-# Active Squad Task State (Avoid committing local working queue; template is preserved)
+# Active project task state; the template remains versioned
 tasks.json
 
-# Local Configuration and Secrets
-appsettings*.Development.json
-appsettings*.Local.json
-*.local.json
-secrets.json
+# Local secrets
+.env
+.env.*
+!.env.example
 
-# Temporary files & Logs
-*.tmp
-*.temp
-*.log
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

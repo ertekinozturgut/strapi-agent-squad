@@ -1,0 +1,6 @@
+---
+description: Canonical Strapi Agent Squad workflow
+alwaysApply: true
+---
+
+Follow `.agents/INIT.md`, `.agents/rules/`, and the active role guide in `.agents/skills/`. Use `tasks.json` as the state machine, keep WIP=1, and block completion on S1 findings.

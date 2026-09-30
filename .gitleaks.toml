@@ -1,0 +1,10 @@
+title = "strapi-agent-squad secret scanning"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Synthetic vulnerable fixtures contain only non-secret examples"
+paths = [
+  '''fixtures/vulnerable/''',
+]

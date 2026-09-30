@@ -1,0 +1,25 @@
+version: 1
+runner: vitest
+database:
+  fast: sqlite
+  parity: null
+runtime:
+  enabled: false
+  baseUrl: http://127.0.0.1:1337
+# Runtime calls are generated only for explicitly declared cases and only against loopback.
+routeExpectations: []
+# - id: featured-anonymous
+#   method: GET
+#   path: /api/articles/featured
+#   identity: anonymous
+#   expectedStatus: [200]
+identities:
+  - name: anonymous
+    type: anonymous
+publicRoutes: []
+pii:
+  fields: []
+  reviewedNonPii: []
+ownership: []
+externalServices: []
+stateMachines: []

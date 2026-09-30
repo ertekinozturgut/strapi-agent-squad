@@ -1,0 +1,6 @@
+version: 1
+runner: vitest
+publicRoutes: []
+pii:
+  fields: [api::lead.lead.email]
+  reviewedNonPii: []

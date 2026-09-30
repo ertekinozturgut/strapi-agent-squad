@@ -1,0 +1,32 @@
+extensions:
+  - addsTo:
+      pack: codeql/javascript-all
+      extensible: sourceModel
+    data:
+      # Koa/Strapi request values, upload metadata and GraphQL-style callback arguments.
+      - ["koa", "Fuzzy.Member[request].Member[body,query,files]", "remote"]
+      - ["koa", "Fuzzy.Member[params,query]", "remote"]
+      - ["@strapi/strapi", "Fuzzy.Member[request].Member[body,query,files]", "remote"]
+      - ["@strapi/strapi", "Fuzzy.Member[params,query]", "remote"]
+      # MCP request handler inputs.
+      - ["@modelcontextprotocol/sdk", "Fuzzy.Member[setRequestHandler].Argument[1].Parameter[0].Member[params]", "remote"]
+      # Imported CSV/XML/workbook data is an untrusted local-file source.
+      - ["csv-parse", "Fuzzy.ReturnValue.Awaited", "file"]
+      - ["xml2js", "Member[parseStringPromise].ReturnValue.Awaited", "file"]
+      - ["xlsx", "Fuzzy.Member[read,readFile].ReturnValue", "file"]
+
+  - addsTo:
+      pack: codeql/javascript-all
+      extensible: sinkModel
+    data:
+      - ["knex", "Fuzzy.Member[raw,whereRaw,havingRaw].Argument[0]", "sql-injection"]
+      - ["@strapi/database", "Fuzzy.Member[raw,whereRaw,havingRaw].Argument[0]", "sql-injection"]
+      - ["koa", "Fuzzy.Member[redirect].Argument[0]", "url-redirection"]
+      - ["global", "Member[fetch].Argument[0]", "request-forgery"]
+      - ["global", "Member[console].Member[log,info,warn,error].Argument[0..N-1]", "log-injection"]
+
+  - addsTo:
+      pack: codeql/javascript-all
+      extensible: summaryModel
+    data:
+      - ["global", "Member[structuredClone]", "Argument[0]", "ReturnValue", "value"]
